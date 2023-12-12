@@ -1,4 +1,5 @@
 import BestSell from '@/app/components/BestSell'
+import CreateProduct from '@/app/components/CreateProduct'
 import ProductForm from '@/app/components/CreateProduct'
 import Header from '@/app/components/Header'
 import Navbar from '@/app/components/Navbar'
@@ -11,6 +12,7 @@ const page = () => {
             <Header />
             <BestSell />
             <ProductForm />
+            <CreateProduct />
         </div>
     )
 }
