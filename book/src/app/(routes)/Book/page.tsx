@@ -11,7 +11,7 @@ const page = () => {
             <Navbar />
             <Header />
             <BestSell />
-            <ProductForm />
+            {/* <ProductForm /> */}
             <CreateProduct />
         </div>
     )
