@@ -35,7 +35,7 @@ const CreateProduct = () => {
                     "Content-Type": "application/json",
                 },
             });
-            console.log(res.json);
+            console.log(res.json());
         } catch (error) {
             console.log(error);
 
