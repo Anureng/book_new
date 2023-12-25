@@ -75,7 +75,7 @@ const FilterProduct = () => {
 
     useEffect(() => {
         handleData()
-    }, [])
+    })
 
 
 

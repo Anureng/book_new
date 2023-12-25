@@ -46,6 +46,9 @@ const LoginForm = () => {
     return (
         <div className="flex items-center justify-center mt-10">
 
+            email :- abc@gmail.com
+            password :- 123456
+
             <Card className="w-[350px]">
                 <CardHeader>
                     <CardTitle>Create User</CardTitle>

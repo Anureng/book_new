@@ -1,4 +1,5 @@
 "use client"
+import { saveBooksToLocalStorage } from '@/libs/localStorage';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
 
@@ -11,7 +12,7 @@ interface Book {
     category: string;
     createdAt: string;
     description: string;
-    id: string;
+    id: number;
     image: string;
     name: string;
     price: number;
@@ -24,31 +25,37 @@ const DetailProduct: React.FC<DetailData> = ({ param }) => {
 
     const [savedData, setSavedData] = useState<Book>()
 
-    // const handleClick = async () => {
-    //     const res = await fetch(`/api/Product/UpdateProduct/${param}`)
-    //     const data = await res.json()
-    //     console.log(data);
-    //     setSavedData(data)
-    // }
 
-    // useEffect(() => {
-    //     handleClick()
-    // }, [])
+
+    useEffect(() => {
+        const handleClick = async () => {
+            const res = await fetch(`/api/Product/UpdateProduct/${param}`)
+            const data = await res.json()
+            setSavedData(data)
+            console.log(data);
+        }
+        handleClick()
+    })
+
+    const handleStoreToLocale = async () => {
+        const res = await fetch(`/api/Product/UpdateProduct/${param}`)
+        const data = await res.json()
+        setSavedData(data)
+        if (data) {
+            saveBooksToLocalStorage('savedData', data);
+        }
+        console.log(data);
+    }
 
 
 
     return (
-        <div className='border border-black h-fit flex gap-x-16 justify-center p-4 '>
+        <div className=' h-fit flex gap-x-16 justify-center p-4 '>
             <div>
-                {savedData && savedData.image && (
-                    <Image
-                        src={savedData.image} // Ensure savedData.image is not undefined here
-                        className='rounded-xl'
-                        alt='Loading...'
-                        width={550}
-                        height={550}
-                    />
-                )}
+                {
+                    savedData?.image && <Image src={savedData?.image} alt="Loading..." width={650} height={650} />
+                }
+
             </div>
             <div className='space-y-4'>
                 <h1 className='text-3xl font-semibold'>{savedData?.name}</h1>
@@ -69,7 +76,7 @@ const DetailProduct: React.FC<DetailData> = ({ param }) => {
                     <p className='text-2xl font-bold'>Category</p>
                     <p className='font-light'>{savedData?.category}</p>
                 </div>
-                <button className='border border-black w-3/5 rounded-lg bg-black text-white h-8'>Add to cart</button>
+                <button onClick={handleStoreToLocale} className='border border-black w-3/5 rounded-lg bg-black text-white h-8'>Add to cart</button>
             </div>
         </div>
     )

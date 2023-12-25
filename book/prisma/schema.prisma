@@ -26,6 +26,7 @@ model User {
   updatedAt      DateTime  @updatedAt
 
   accounts Account[]
+  carts    Cart[]
 }
 
 model Account {
@@ -59,6 +60,7 @@ model Product {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   reviews     Review[] // Define the one-to-many relationship
+  carts       Cart[]
 }
 
 model Review {
@@ -69,4 +71,18 @@ model Review {
   updatedAt DateTime @updatedAt
   product   Product  @relation(fields: [productId], references: [id]) // Many-to-one relationship with Product
   productId String   @db.ObjectId
+}
+
+model Cart {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  quantity  Int      @default(1)
+  createdAt DateTime @default(now())
+
+  user    User    @relation(fields: [userId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  userId    String @db.ObjectId
+  productId String @db.ObjectId
+
+  @@unique([userId, productId])
 }

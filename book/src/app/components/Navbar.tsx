@@ -99,7 +99,9 @@ const Navbar = () => {
         <BsSearch  className=""/>
         </div> */}
                     <div className="bg-red-400 text-white text-xl p-1 ">
-                        <ShoppingCart />
+                        <Link href="/Cart">
+                            <ShoppingCart />
+                        </Link>
                     </div>
                 </div>
             </div>
