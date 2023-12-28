@@ -1,7 +1,9 @@
 "use client"
 import { saveBooksToLocalStorage } from '@/libs/localStorage';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react'
+
 
 interface DetailData {
     param: string;
@@ -24,7 +26,7 @@ interface Book {
 const DetailProduct: React.FC<DetailData> = ({ param }) => {
 
     const [savedData, setSavedData] = useState<Book>()
-
+    const { data } = useSession()
 
 
     useEffect(() => {
@@ -38,13 +40,23 @@ const DetailProduct: React.FC<DetailData> = ({ param }) => {
     })
 
     const handleStoreToLocale = async () => {
-        const res = await fetch(`/api/Product/UpdateProduct/${param}`)
-        const data = await res.json()
-        setSavedData(data)
-        if (data) {
-            saveBooksToLocalStorage('savedData', data);
+        try {
+            const res = await fetch("/api/Product/AddToCart", {
+                method: "POST",
+                body: JSON.stringify({
+                    userId: data?.user.id,
+                    productId: param,
+                    quantity: 1
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            console.log(res.json());
+            alert("Add to Cart Success Fully")
+        } catch (error) {
+            console.log(error);
         }
-        console.log(data);
     }
 
 

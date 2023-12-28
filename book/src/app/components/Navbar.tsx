@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useRouter } from 'next/navigation'
 import { signOut, useSession } from "next-auth/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -18,6 +18,17 @@ import { LogOut, UserCircle, UserCog } from "lucide-react";
 import Link from 'next/link'
 
 const Navbar = () => {
+
+    const [countData, setCountData] = useState()
+    const addToCart = async () => {
+        const fetchData = await fetch("api/Product/AddToCart")
+        const data = await fetchData.json()
+        setCountData(data.length)
+    }
+
+    useEffect(() => {
+        addToCart()
+    })
     const { data } = useSession()
     const router = useRouter()
     return (
@@ -98,8 +109,9 @@ const Navbar = () => {
         <input type="text" placeholder='Search Product...' className='rounded-xl p-1 outline-none' />
         <BsSearch  className=""/>
         </div> */}
-                    <div className="bg-red-400 text-white text-xl p-1 ">
+                    <div className="bg-red-400 flex text-white text-xl p-1 ">
                         <Link href="/Cart">
+                            {countData}
                             <ShoppingCart />
                         </Link>
                     </div>

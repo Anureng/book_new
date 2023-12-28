@@ -2,31 +2,28 @@ import client from "@/libs/prismadb";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
+
     try {
-        const { rating, comment, productId } = await request.json();
-
-        // Check if the provided productId exists before creating the review
-        const existingProduct = await client.cart.findUnique({
-            where: {
-                id: productId
-            }
-        });
-
-        if (!existingProduct) {
-            return new NextResponse("Product not found", { status: 404 });
-        }
-
-        const newReview = await client.review.create({
+        const { userId, productId, quantity } = await request.json();
+        const cartItem = await client.cart.create({
             data: {
-                rating,
-                comment,
-                productId
-            }
+                userId,
+                productId,
+                quantity,
+            },
         });
-
-        return NextResponse.json(newReview, { status: 201 });
+        return NextResponse.json(cartItem, { status: 201 });
     } catch (error) {
-        console.error("Error creating review:", error);
+        return new NextResponse("Internal error", { status: 500 });
+    }
+
+}
+
+export async function GET(request: Request) {
+    try {
+        const cartItems = await client.cart.findMany();
+        return NextResponse.json(cartItems, { status: 201 });
+    } catch (error) {
         return new NextResponse("Internal error", { status: 500 });
     }
 }
