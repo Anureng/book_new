@@ -34,7 +34,7 @@ const DetailProduct: React.FC<DetailData> = ({ param }) => {
             const res = await fetch(`/api/Product/UpdateProduct/${param}`)
             const data = await res.json()
             setSavedData(data)
-            console.log(data);
+            // console.log(data);
         }
         handleClick()
     })
@@ -52,7 +52,7 @@ const DetailProduct: React.FC<DetailData> = ({ param }) => {
                     "Content-Type": "application/json",
                 },
             });
-            console.log(res.json());
+            // console.log(res.json());
             alert("Add to Cart Success Fully")
         } catch (error) {
             console.log(error);

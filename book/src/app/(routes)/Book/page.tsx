@@ -1,4 +1,5 @@
 import AllProduct from '@/app/components/AllProduct'
+import BestProduct from '@/app/components/BestProduct'
 import BestSell from '@/app/components/BestSell'
 import CreateProduct from '@/app/components/CreateProduct'
 import ProductForm from '@/app/components/CreateProduct'
@@ -9,7 +10,11 @@ import Navbar from '@/app/components/Navbar'
 import RegisterForm from '@/app/components/RegisterForm'
 import React from 'react'
 
-const page = () => {
+export interface IParams {
+    id: string;
+}
+
+const page = ({ params }: { params: IParams }) => {
     return (
         <div>
             <Navbar />
@@ -20,6 +25,7 @@ const page = () => {
             <AllProduct />
             <RegisterForm />
             <LoginForm /> */}
+            <BestProduct param={params.id} />
             <Footer />
         </div>
     )

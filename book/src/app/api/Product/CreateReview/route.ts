@@ -30,3 +30,18 @@ export async function POST(request: Request) {
         return new NextResponse("Internal error", { status: 500 });
     }
 }
+
+export async function GET(request: Request) {
+    try {
+
+
+        // Check if the provided productId exists before creating the review
+
+        const newReview = await client.review.findMany()
+
+        return NextResponse.json(newReview, { status: 201 })
+    } catch (error) {
+        console.error("Error creating review:", error);
+        return new NextResponse("Internal error", { status: 500 });
+    }
+}

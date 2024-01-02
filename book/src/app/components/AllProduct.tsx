@@ -15,18 +15,7 @@ interface Book {
     updatedAt: string;
 }
 
-const initialBookState: Book = {
-    author: "Peter Wohlleben",
-    category: "Science & Nature",
-    createdAt: "2023-12-13T15:07:37.609Z",
-    description: "Explore the hidden world of trees and their incredible communication abilities.",
-    id: "6579c8b9baff391f0aa8a9bd",
-    image: "https://res.cloudinary.com/dd8ckn2oz/image/upload/v1702480000/products/rp5jrvtexkwa0tdv2d7e.jpg",
-    name: "The Secret Life of Trees",
-    price: 24,
-    type: "Hardcover",
-    updatedAt: "2023-12-13T15:07:37.609Z"
-};
+
 const AllProduct = () => {
     const [data, setData] = useState<Book[]>()
     useEffect(() => {

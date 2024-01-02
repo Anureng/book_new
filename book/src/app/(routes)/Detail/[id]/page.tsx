@@ -1,3 +1,4 @@
+import Comment from '@/app/components/Comment';
 import CreateReview from '@/app/components/CreateReview';
 import DetailProduct from '@/app/components/DetailProduct';
 import Footer from '@/app/components/Footer';
@@ -17,7 +18,8 @@ const page = async ({ params }: { params: IParams }) => {
             {/* {params.id} */}
             {/* {data.name} */}
             <DetailProduct param={params.id} />
-            {/* <CreateReview param={params.id} /> */}
+            <CreateReview param={params.id} />
+            <Comment param={params.id} />
             <Footer />
         </div>
     )

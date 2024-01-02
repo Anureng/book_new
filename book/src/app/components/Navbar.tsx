@@ -18,18 +18,25 @@ import { LogOut, UserCircle, UserCog } from "lucide-react";
 import Link from 'next/link'
 
 const Navbar = () => {
-
-    const [countData, setCountData] = useState()
+    const { data } = useSession()
+    const [countData, setCountData] = useState(0)
     const addToCart = async () => {
         const fetchData = await fetch("api/Product/AddToCart")
-        const data = await fetchData.json()
-        setCountData(data.length)
+        const dataFrom = await fetchData.json()
+        if (data?.user.id === dataFrom[0].userId) {
+            console.log(dataFrom);
+            setCountData(dataFrom.length)
+            console.log(countData);
+        }
+        else {
+            setCountData(0)
+        }
     }
 
     useEffect(() => {
         addToCart()
     })
-    const { data } = useSession()
+
     const router = useRouter()
     return (
         <div>
@@ -110,8 +117,10 @@ const Navbar = () => {
         <BsSearch  className=""/>
         </div> */}
                     <div className="bg-red-400 flex text-white text-xl p-1 ">
-                        <Link href="/Cart">
-                            {countData}
+                        <Link href="/Cart" className='flex'>
+                            {countData === 0 ? "" : (
+                                <div>{countData}</div>
+                            )}
                             <ShoppingCart />
                         </Link>
                     </div>
